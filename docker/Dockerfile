@@ -1,6 +1,7 @@
 FROM ubuntu:12.04
 MAINTAINER Anton Romanovich <anthony.romanovich@gmail.com>
 
+RUN apt-get update
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise universe" > /etc/apt/sources.list.d/universe.list
 RUN echo "deb http://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list
 RUN apt-get install -y curl
@@ -13,7 +14,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python-apt ca-certificates
     cron mysql-server redis-server git lxc-docker-0.10.0
 RUN pip install supervisor
 RUN useradd -m -d /home/kozmic -G docker -s /bin/bash kozmic
-RUN git clone https://github.com/aromanovich/kozmic-ci.git /src/
+RUN git clone https://github.com/bazilio91/kozmic-ci.git /src/
+RUN cd /src/ && git pull && git checkout dev
 RUN pip install -r /src/requirements/kozmic.txt
 RUN pip install -r /src/requirements/tailer.txt
 

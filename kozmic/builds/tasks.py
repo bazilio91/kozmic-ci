@@ -330,7 +330,9 @@ class Builder(threading.Thread):
         self._message_queue.put(self.container, block=True, timeout=60)
         self._message_queue.join()
 
-        self._docker.start(self.container, binds={self._working_dir: '/kozmic'}, privileged=True)
+        self._docker.start(self.container, binds={
+            self._working_dir: '/kozmic', '/var/run/docker.sock': '/var/run/docker.sock'
+        }, privileged=True)
         logger.info('Docker process %s has started.', self.container)
 
         return_code = self._docker.wait(self.container)

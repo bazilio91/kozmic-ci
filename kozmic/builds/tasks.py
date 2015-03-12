@@ -37,7 +37,6 @@ logger = get_task_logger(__name__)
 def create_temp_dir():
     build_dir = tempfile.mkdtemp()
     yield build_dir
-    shutil.rmtree(build_dir)
 
 
 class Publisher(object):

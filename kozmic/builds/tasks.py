@@ -325,7 +325,7 @@ class Builder(threading.Thread):
         self.container = self._docker.create_container(
             self._docker_image,
             command='bash /kozmic/script-starter.sh',
-            volumes={'/kozmic': {}})
+            volumes={'/kozmic': {}, '/var/run/docker.sock': {}})
 
         self._message_queue.put(self.container, block=True, timeout=60)
         self._message_queue.join()

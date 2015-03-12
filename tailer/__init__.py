@@ -57,6 +57,8 @@ def app(environ, start_response):
     match = re.match('/(?P<job_id>.+)/', environ['PATH_INFO'])
     if not match:
         start_response('404', [('Content-Type', 'text/plain')])
+        return
+
     job_id = match.group('job_id')
 
     uwsgi.websocket_handshake(environ['HTTP_SEC_WEBSOCKET_KEY'],
